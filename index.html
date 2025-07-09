@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Wallpaper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .container {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      color: white;
+      text-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    #time {
+      font-size: 60px;
+      letter-spacing: 4px;
+    }
+
+    #day {
+      font-size: 50px;
+      margin-top: 10px;
+      letter-spacing: 8px;
+    }
+
+    #date {
+      font-size: 28px;
+      margin-top: 8px;
+      letter-spacing: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop id="bgVideo">
+    <source src="C:\Users\Павел\Desktop\ingame.mp4" type="video/mp4">
+  </video>
+
+  <div class="container">
+    <div id="time">--:--</div>
+    <div id="day">Loading...</div>
+    <div id="date">-- --- ----</div>
+  </div>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+      const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const timeStr = `${hours}:${minutes}`;
+
+      const dayStr = days[now.getDay()];
+      const dateStr = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+
+      document.getElementById('time').textContent = timeStr;
+      document.getElementById('day').textContent = dayStr;
+      document.getElementById('date').textContent = dateStr;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+  </script>
+
+</body>
+</html>
